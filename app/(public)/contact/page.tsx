@@ -1,6 +1,7 @@
 import ContactForm from '@/components/public/ContactForm';
 import { getWebsiteSettings } from '@/lib/actions/settingsActions';
 import { Phone, Mail, MapPin, MessageCircle, Clock } from 'lucide-react';
+import { Suspense } from 'react';
 
 export const revalidate = 3600; // Cache page for 1 hour (ISR)
 
@@ -117,7 +118,9 @@ export default async function PublicContactPage() {
 
         {/* Right Side: Form */}
         <div className="lg:col-span-7">
-          <ContactForm />
+          <Suspense fallback={<div className="p-8 text-center text-[#AF8F58] font-sans text-sm bg-[#FDFBF7] border border-[#EAE5DA] rounded-2xl">Loading form...</div>}>
+            <ContactForm />
+          </Suspense>
         </div>
 
       </section>
