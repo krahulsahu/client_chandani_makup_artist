@@ -175,12 +175,27 @@ export default function InquiriesManager({ inquiries }: InquiriesManagerProps) {
                     </TableCell>
 
                     {/* Event & Date */}
-                    <TableCell className="font-sans text-sm text-gray-600">
-                      <p className="font-medium text-[#2C221E]">{inquiry.eventType}</p>
+                    <TableCell className="font-sans text-xs text-gray-600">
+                      <p className="font-semibold text-[#2C221E] text-sm">{inquiry.eventType}</p>
                       <span className="inline-flex items-center text-[10px] text-gray-400 mt-1">
                         <Calendar className="w-3 h-3 mr-1" />
-                        {new Date(inquiry.createdAt).toLocaleDateString()}
+                        Created: {new Date(inquiry.createdAt).toLocaleDateString()}
                       </span>
+                      {inquiry.eventDate && (
+                        <p className="text-[10px] text-amber-800 font-semibold mt-1">
+                          Date: {inquiry.eventDate}
+                        </p>
+                      )}
+                      {inquiry.eventLocation && (
+                        <p className="text-[10px] text-gray-500">
+                          Location: {inquiry.eventLocation}
+                        </p>
+                      )}
+                      {inquiry.budget && (
+                        <p className="text-[10px] text-[#AF8F58] font-medium">
+                          Budget: {inquiry.budget}
+                        </p>
+                      )}
                     </TableCell>
 
                     {/* Message body */}
@@ -269,22 +284,67 @@ export default function InquiriesManager({ inquiries }: InquiriesManagerProps) {
         <DialogContent className="max-w-md bg-[#FDFBF7] border-[#EAE5DA]">
           <DialogHeader>
             <DialogTitle className="font-serif text-xl text-[#2C221E]">
-              Follow-up Notes
+              Inquiry & Follow-up Details
             </DialogTitle>
             <DialogDescription className="text-xs text-gray-500 font-sans">
-              Add custom tracking notes for lead: {selectedInquiry?.name}
+              Detailed inquiry information for {selectedInquiry?.name}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="py-4">
-            <Label htmlFor="notes">Notes/Call summary</Label>
+          {selectedInquiry && (
+            <div className="space-y-3 py-2 text-xs font-sans text-gray-600 border-b border-[#FAF6F0] pb-4">
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <p className="font-semibold text-gray-400">Email</p>
+                  <p className="text-sm font-medium text-[#2C221E]">{selectedInquiry.email}</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-400">Phone</p>
+                  <p className="text-sm font-medium text-[#2C221E]">{selectedInquiry.phone}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <p className="font-semibold text-gray-400">Service requested</p>
+                  <p className="text-sm font-medium text-[#2C221E]">{selectedInquiry.eventType}</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-400">Submitted on</p>
+                  <p className="text-sm font-medium text-[#2C221E]">{new Date(selectedInquiry.createdAt).toLocaleDateString()}</p>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-2 border-t border-[#FAF6F0] pt-2">
+                <div>
+                  <p className="font-semibold text-gray-400">Event Date</p>
+                  <p className="text-sm font-medium text-amber-700">{selectedInquiry.eventDate || 'N/A'}</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-400 font-sans">Event Location</p>
+                  <p className="text-sm font-medium text-[#2C221E]">{selectedInquiry.eventLocation || 'N/A'}</p>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-400 font-sans">Budget</p>
+                  <p className="text-sm font-medium text-[#AF8F58]">{selectedInquiry.budget || 'N/A'}</p>
+                </div>
+              </div>
+              <div className="border-t border-[#FAF6F0] pt-2">
+                <p className="font-semibold text-gray-400">Additional Notes</p>
+                <p className="text-xs text-[#2C221E] bg-white border border-[#EAE5DA] p-2 rounded-md italic mt-1 max-h-24 overflow-y-auto whitespace-pre-wrap">
+                  "{selectedInquiry.message || 'No additional notes provided'}"
+                </p>
+              </div>
+            </div>
+          )}
+
+          <div className="py-2">
+            <Label htmlFor="notes" className="text-xs uppercase font-semibold text-[#2C221E] tracking-wider">Follow-up Notes / Activity Log</Label>
             <Textarea
               id="notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="e.g. Spoke on June 25, bridal trial scheduled for July 12. Quoted ₹12,000."
-              rows={4}
-              className="bg-white border-[#EAE5DA] mt-1.5"
+              rows={3}
+              className="bg-white border-[#EAE5DA] mt-1.5 text-sm"
             />
           </div>
 

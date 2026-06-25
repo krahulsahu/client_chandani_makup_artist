@@ -28,7 +28,10 @@ export async function submitContact(data: {
   phone: string;
   email: string;
   eventType: string;
-  message: string;
+  eventDate?: string;
+  eventLocation?: string;
+  budget?: string;
+  message?: string;
 }) {
   await dbConnect();
   if (isMockMode()) {
@@ -36,8 +39,8 @@ export async function submitContact(data: {
     return { success: true };
   }
 
-  if (!data.name || !data.phone || !data.email || !data.eventType || !data.message) {
-    throw new Error('Please fill in all fields.');
+  if (!data.name || !data.phone || !data.email || !data.eventType) {
+    throw new Error('Please fill in all required fields.');
   }
 
   const contact = new Contact({
@@ -45,7 +48,10 @@ export async function submitContact(data: {
     phone: data.phone,
     email: data.email,
     eventType: data.eventType,
-    message: data.message,
+    eventDate: data.eventDate || '',
+    eventLocation: data.eventLocation || '',
+    budget: data.budget || '',
+    message: data.message || '',
     status: 'new',
     notes: ''
   });

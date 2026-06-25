@@ -17,7 +17,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: 'Chandani Kumari | Luxury Makeup Artist & Beauty Specialist',
   description: 'Professional luxury makeup artist specializing in premium bridal cosmetics, reception styling, and event makeovers by Chandani Kumari.',
-  keywords: ['makeup artist', 'bridal makeup Patna', 'wedding stylist', 'Chandani Kumari makeup', 'beauty specialist'],
+  keywords: ['makeup artist', 'bridal makeup Bengaluru', 'wedding stylist', 'Chandani Kumari makeup', 'beauty specialist'],
 };
 
 export default function RootLayout({

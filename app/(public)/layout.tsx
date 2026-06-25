@@ -22,7 +22,7 @@ export default async function PublicLayout({
       </div>
 
       {/* Shared Footer block */}
-      <Footer />
+      <Footer settings={settings} />
 
       {/* Floating interactive WhatsApp widget */}
       <WhatsAppButton number={whatsappNumber} />

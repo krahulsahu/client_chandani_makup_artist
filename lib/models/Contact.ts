@@ -5,6 +5,9 @@ const ContactSchema = new Schema({
   phone: { type: String, required: true },
   email: { type: String, required: true },
   eventType: { type: String, required: true },
+  eventDate: { type: String },
+  eventLocation: { type: String },
+  budget: { type: String },
   message: { type: String, required: true },
   status: { type: String, enum: ['new', 'contacted', 'archived'], default: 'new' },
   notes: { type: String }

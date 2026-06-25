@@ -18,7 +18,10 @@ const contactSchema = z.object({
   phone: z.string().min(10, 'Please enter a valid phone number (minimum 10 digits)'),
   email: z.string().email('Please enter a valid email address'),
   eventType: z.string().min(1, 'Please select the event type'),
-  message: z.string().min(10, 'Inquiry details must be at least 10 characters')
+  eventDate: z.string().min(1, 'Please select the event date'),
+  eventLocation: z.string().min(2, 'Please enter the event location'),
+  budget: z.string().optional().or(z.literal('')),
+  message: z.string().optional().or(z.literal(''))
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -49,6 +52,9 @@ export default function ContactForm() {
       phone: '',
       email: '',
       eventType: '',
+      eventDate: '',
+      eventLocation: '',
+      budget: '',
       message: ''
     }
   });
@@ -173,19 +179,64 @@ export default function ContactForm() {
           {errors.eventType && <p className="text-[10px] text-red-500 font-medium">{errors.eventType.message}</p>}
         </div>
 
-        {/* Message */}
+        {/* Event Date & Location Group */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Event Date */}
+          <div className="space-y-1.5">
+            <Label htmlFor="eventDate" className="text-xs tracking-wider uppercase font-semibold text-[#2C221E]">
+              Event Date *
+            </Label>
+            <Input
+              id="eventDate"
+              type="date"
+              {...register('eventDate')}
+              className={cn("bg-white border-[#EAE5DA] h-10", errors.eventDate && "border-red-500 focus-visible:ring-red-500")}
+            />
+            {errors.eventDate && <p className="text-[10px] text-red-500 font-medium">{errors.eventDate.message}</p>}
+          </div>
+
+          {/* Event Location */}
+          <div className="space-y-1.5">
+            <Label htmlFor="eventLocation" className="text-xs tracking-wider uppercase font-semibold text-[#2C221E]">
+              Event Location *
+            </Label>
+            <Input
+              id="eventLocation"
+              type="text"
+              placeholder="e.g. Rajajinagar, Bengaluru"
+              {...register('eventLocation')}
+              className={cn("bg-white border-[#EAE5DA] h-10", errors.eventLocation && "border-red-500 focus-visible:ring-red-500")}
+            />
+            {errors.eventLocation && <p className="text-[10px] text-red-500 font-medium">{errors.eventLocation.message}</p>}
+          </div>
+        </div>
+
+        {/* Budget */}
+        <div className="space-y-1.5">
+          <Label htmlFor="budget" className="text-xs tracking-wider uppercase font-semibold text-[#2C221E]">
+            Estimated Budget (Optional)
+          </Label>
+          <Input
+            id="budget"
+            type="text"
+            placeholder="e.g. ₹15,000 - ₹20,000"
+            {...register('budget')}
+            className="bg-white border-[#EAE5DA] h-10"
+          />
+        </div>
+
+        {/* Additional Notes */}
         <div className="space-y-1.5">
           <Label htmlFor="message" className="text-xs tracking-wider uppercase font-semibold text-[#2C221E]">
-            Your Message *
+            Additional Notes (Optional)
           </Label>
           <Textarea
             id="message"
-            placeholder="Share details such as event date, location, skin type, hair preferences, number of guest makeovers needed..."
+            placeholder="Share any special preferences, skin type, hair styling inspiration, number of guest makeovers needed..."
             {...register('message')}
             rows={4}
-            className={cn("bg-white border-[#EAE5DA]", errors.message && "border-red-500 focus-visible:ring-red-500")}
+            className="bg-white border-[#EAE5DA]"
           />
-          {errors.message && <p className="text-[10px] text-red-500 font-medium">{errors.message.message}</p>}
         </div>
 
         {error && (

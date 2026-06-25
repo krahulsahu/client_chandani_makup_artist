@@ -7,10 +7,10 @@ export const revalidate = 3600; // Cache page for 1 hour (ISR)
 
 export default async function PublicContactPage() {
   const settings = await getWebsiteSettings();
-  const phone = settings?.phoneNumbers?.[0] || '+91 99999 99999';
-  const email = settings?.email || 'info@chandanikumari.com';
-  const address = settings?.address || 'Patna, Bihar, India';
-  const whatsapp = settings?.whatsappNumber || '+919999999999';
+  const phone = settings?.phoneNumbers?.[0] || '+91 91553 31272';
+  const email = settings?.email || 'chandkreh@gmail.com';
+  const address = settings?.address || 'Bengaluru - 560097, Karnataka, India';
+  const whatsapp = settings?.whatsappNumber || '+919155331272';
 
   return (
     <main className="pb-24">
@@ -106,7 +106,7 @@ export default async function PublicContactPage() {
           <div className="bg-[#FDFBF7] border border-[#EAE5DA] p-2 rounded-2xl shadow-sm h-64 overflow-hidden">
             <iframe 
               title="Studio Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115136.19794508493!2d85.07300188981615!3d25.608175571167733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f29937c52d43df%3A0x8311a062447b6851!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1719273600000!5m2!1sen!2sin" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539097!2d77.49085244908006!3d12.953847728795557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1719273600000!5m2!1sen!2sin" 
               className="w-full h-full rounded-xl border-0"
               allowFullScreen={false} 
               loading="lazy" 

@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
-export default function Footer() {
+interface FooterProps {
+  settings?: any;
+}
+
+export default function Footer({ settings }: FooterProps) {
   return (
     <footer className="bg-[#1F1613] text-[#FAF6F0] border-t border-[#2C221E] font-sans">
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-16 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -41,15 +45,28 @@ export default function Footer() {
           <ul className="space-y-3 text-sm text-gray-300">
             <li className="flex items-start">
               <MapPin className="w-4.5 h-4.5 text-[#D4AF37] mr-3 mt-0.5 shrink-0" />
-              <span>Patna, Bihar, India</span>
+              <span>{settings?.address || 'Bengaluru - 560097, Karnataka, India'}</span>
             </li>
-            <li className="flex items-center">
-              <Phone className="w-4.5 h-4.5 text-[#D4AF37] mr-3 shrink-0" />
-              <a href="tel:+919999999999" className="hover:text-[#D4AF37] transition-colors">+91 99999 99999</a>
+            <li className="flex items-start flex-col space-y-1">
+              <div className="flex items-center">
+                <Phone className="w-4.5 h-4.5 text-[#D4AF37] mr-3 shrink-0" />
+                <a href={`tel:${settings?.phoneNumbers?.[0] || '+919155331272'}`} className="hover:text-[#D4AF37] transition-colors">
+                  {settings?.phoneNumbers?.[0] || '+91 91553 31272'}
+                </a>
+              </div>
+              {settings?.phoneNumbers?.[1] && (
+                <div className="flex items-center pl-7.5">
+                  <a href={`tel:${settings.phoneNumbers[1]}`} className="hover:text-[#D4AF37] transition-colors text-xs text-gray-400">
+                    {settings.phoneNumbers[1]}
+                  </a>
+                </div>
+              )}
             </li>
             <li className="flex items-center">
               <Mail className="w-4.5 h-4.5 text-[#D4AF37] mr-3 shrink-0" />
-              <a href="mailto:info@chandanikumari.com" className="hover:text-[#D4AF37] transition-colors">info@chandanikumari.com</a>
+              <a href={`mailto:${settings?.email || 'chandkreh@gmail.com'}`} className="hover:text-[#D4AF37] transition-colors">
+                {settings?.email || 'chandkreh@gmail.com'}
+              </a>
             </li>
           </ul>
           
