@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lightbox from '@/components/shared/Lightbox';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { cn, optimizeImageUrl } from '@/lib/utils';
 
 interface GalleryShowcaseProps {
   portfolioItems: any[];
@@ -62,7 +62,7 @@ export default function GalleryShowcase({ portfolioItems }: GalleryShowcaseProps
   };
 
   // Flatten urls for lightbox navigation
-  const lightboxUrls = filteredImages.map(img => img.url);
+  const lightboxUrls = filteredImages.map(img => optimizeImageUrl(img.url));
 
   return (
     <div className="space-y-12">
@@ -107,7 +107,7 @@ export default function GalleryShowcase({ portfolioItems }: GalleryShowcaseProps
                 className="aspect-square relative group overflow-hidden bg-gray-100 rounded-xl cursor-pointer border border-[#EAE5DA] shadow-sm"
               >
                 <img
-                  src={img.url}
+                  src={optimizeImageUrl(img.url)}
                   alt={img.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 select-none"
                   loading="lazy"

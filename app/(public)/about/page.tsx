@@ -1,13 +1,14 @@
-import { getAboutContent, getWebsiteSettings } from '@/lib/actions/settingsActions';
+import { getAboutContent, getWebsiteSettings, getHomepageContent } from '@/lib/actions/settingsActions';
 import { Award, GraduationCap, Clock, Sparkles, ShieldCheck, Briefcase, Languages, Check, Star } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, optimizeImageUrl } from '@/lib/utils';
 
 export const revalidate = 3600; // Cache about page for 1 hour (ISR)
 
 export default async function PublicAboutPage() {
-  const [aboutContent, settings] = await Promise.all([
+  const [aboutContent, settings, homeContent] = await Promise.all([
     getAboutContent(),
-    getWebsiteSettings()
+    getWebsiteSettings(),
+    getHomepageContent()
   ]);
 
   const whyChooseMe = aboutContent?.whyChooseMe || [
@@ -51,7 +52,7 @@ export default async function PublicAboutPage() {
         <div className="lg:col-span-5 flex justify-center">
           <div className="relative w-80 h-[450px] border-[3px] double border-[#D4AF37] p-2 bg-white rounded-2xl shadow-xl overflow-hidden group">
             <img 
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800" 
+              src={optimizeImageUrl(homeContent?.hero?.makeupArtistPhoto || "https://drive.google.com/file/d/1lx-Vc726so_n5014MRd1Zu1iyh9zeXGc/view?usp=sharing")} 
               alt="Chandani Kumari Portrait" 
               className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
             />

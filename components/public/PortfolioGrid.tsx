@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lightbox from '@/components/shared/Lightbox';
 import { Calendar, Tag } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, optimizeImageUrl } from '@/lib/utils';
 
 interface PortfolioGridProps {
   portfolioItems: any[];
@@ -87,7 +87,7 @@ export default function PortfolioGrid({ portfolioItems }: PortfolioGridProps) {
                   {item.images && item.images.length > 0 ? (
                     <div className="grid grid-cols-1 gap-2">
                       <img
-                        src={item.images[0]}
+                        src={optimizeImageUrl(item.images[0])}
                         alt={item.title}
                         onClick={() => handleImageClick(itemIdx, 0)}
                         className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-500 rounded-t-xl"
@@ -99,7 +99,7 @@ export default function PortfolioGrid({ portfolioItems }: PortfolioGridProps) {
                           {item.images.slice(1, 5).map((imgUrl: string, imgIdx: number) => (
                             <img
                               key={imgIdx}
-                              src={imgUrl}
+                              src={optimizeImageUrl(imgUrl)}
                               alt={`${item.title} secondary`}
                               onClick={() => handleImageClick(itemIdx, imgIdx + 1)}
                               className="w-full h-10 object-cover rounded hover:opacity-80 transition-opacity border border-gray-100"
@@ -149,7 +149,7 @@ export default function PortfolioGrid({ portfolioItems }: PortfolioGridProps) {
 
       {/* Fullscreen Lightbox Overlay */}
       <Lightbox
-        images={lightboxImages}
+        images={lightboxImages.map(img => optimizeImageUrl(img))}
         currentIndex={lightboxIndex}
         isOpen={lightboxOpen}
         onClose={() => setLightboxOpen(false)}

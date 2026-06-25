@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Star, Calendar, MessageSquare, Tag } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn, optimizeImageUrl } from '@/lib/utils';
 
 interface ReviewsListProps {
   reviews: any[];
@@ -162,7 +162,7 @@ export default function ReviewsList({ reviews }: ReviewsListProps) {
                   <div className="flex items-center space-x-3">
                     {review.clientPhoto ? (
                       <img 
-                        src={review.clientPhoto} 
+                        src={optimizeImageUrl(review.clientPhoto)} 
                         alt={review.clientName} 
                         className="w-10 h-10 object-cover rounded-full border border-[#C5A880]" 
                       />

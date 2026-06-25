@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/table';
 import { Plus, Search, Edit2, Trash2, Calendar, Star, StarOff } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { optimizeImageUrl } from '@/lib/utils';
 
 interface PortfolioManagerProps {
   portfolioItems: any[];
@@ -188,7 +189,7 @@ export default function PortfolioManager({ portfolioItems }: PortfolioManagerPro
                     <TableCell>
                       {item.images && item.images.length > 0 ? (
                         <img 
-                          src={item.images[0]} 
+                          src={optimizeImageUrl(item.images[0])} 
                           alt={item.title} 
                           className="w-10 h-10 object-cover rounded-md border border-[#EAE5DA]" 
                         />

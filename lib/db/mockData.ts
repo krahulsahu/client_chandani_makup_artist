@@ -26,7 +26,7 @@ export const mockHomepage = {
     subtitle: 'Chandani Kumari - Makeup Artist & Beauty Specialist',
     tagline: 'Transforming Beauty with Elegance and Confidence.',
     bannerImage: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200',
-    makeupArtistPhoto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600'
+    makeupArtistPhoto: 'https://drive.google.com/file/d/1lx-Vc726so_n5014MRd1Zu1iyh9zeXGc/view?usp=sharing'
   },
   statistics: {
     happyClients: 120,
@@ -346,11 +346,42 @@ export const mockContacts = [
   {
     _id: 'mock-c1',
     name: 'Sneha Gupta',
-    phone: '+919555555555',
-    email: 'sneha@example.com',
+    phone: '+91 95555 55555',
+    email: 'sneha.gupta@example.com',
     eventType: 'Bridal Makeup',
-    message: 'Looking to book bridal makeup for December 15, 2026. Please let me know slot availability.',
+    eventDate: '2026-12-15',
+    eventLocation: 'Whitefield, Bengaluru',
+    budget: '₹20,000 - ₹25,000',
+    message: 'Looking to book premium bridal HD makeup and double-veil dupatta draping. Please call me.',
     status: 'new',
-    createdAt: '2026-06-24T00:00:00.000Z'
+    createdAt: '2026-06-24T10:00:00.000Z'
+  },
+  {
+    _id: 'mock-c2',
+    name: 'Priya Narayanan',
+    phone: '+91 91234 56789',
+    email: 'priya.n@example.com',
+    eventType: 'South Indian Bridal Makeup',
+    eventDate: '2026-11-20',
+    eventLocation: 'Indiranagar, Bengaluru',
+    budget: '₹18,000',
+    message: 'Need traditional South Indian wedding styling, braid extensions setting, and temple jewelry placement.',
+    status: 'contacted',
+    notes: 'Called on June 24. Trial scheduled for next week.',
+    createdAt: '2026-06-23T14:30:00.000Z'
+  },
+  {
+    _id: 'mock-c3',
+    name: 'Anjali Marwah',
+    phone: '+91 98765 43210',
+    email: 'anjali.m@example.com',
+    eventType: 'Marwari Saree Draping',
+    eventDate: '2026-10-05',
+    eventLocation: 'Rajajinagar, Bengaluru',
+    budget: '₹3,000',
+    message: 'Need elegant Marwari style saree pleating and setting for a reception event.',
+    status: 'archived',
+    notes: 'Booking confirmed and slot blocked.',
+    createdAt: '2026-06-20T09:15:00.000Z'
   }
 ];

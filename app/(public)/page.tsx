@@ -4,6 +4,7 @@ import { getServices } from '@/lib/actions/serviceActions';
 import { getPortfolios } from '@/lib/actions/portfolioActions';
 import { getReviews } from '@/lib/actions/reviewActions';
 import Link from 'next/link';
+import { optimizeImageUrl } from '@/lib/utils';
 import { 
   Phone, 
   MessageCircle, 
@@ -61,7 +62,7 @@ export default async function PublicHomePage() {
         <div 
           className="absolute inset-0 bg-cover bg-center z-0 scale-105"
           style={{ 
-            backgroundImage: `url(${hero.bannerImage || 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1600'})` 
+            backgroundImage: `url(${optimizeImageUrl(hero.bannerImage) || 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1600'})` 
           }}
         />
         {/* Luxury Gold/Dark gradient overlay */}
@@ -110,7 +111,7 @@ export default async function PublicHomePage() {
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative w-72 h-96 md:w-80 md:h-[450px] border-[3px] double border-[#D4AF37] p-2 bg-[#FAF6F0]/10 backdrop-blur-sm rounded-t-[100px] overflow-hidden shadow-2xl">
               <img 
-                src={hero.makeupArtistPhoto || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800'} 
+                src={optimizeImageUrl(hero.makeupArtistPhoto || 'https://drive.google.com/file/d/1lx-Vc726so_n5014MRd1Zu1iyh9zeXGc/view?usp=sharing')} 
                 alt="Makeup Artist Chandani Kumari" 
                 className="w-full h-full object-cover rounded-t-[90px]"
               />

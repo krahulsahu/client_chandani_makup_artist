@@ -4,6 +4,7 @@ import WebsiteSettings from '../models/WebsiteSettings';
 import HomepageContent from '../models/HomepageContent';
 import AboutContent from '../models/AboutContent';
 import Service from '../models/Service';
+import Contact from '../models/Contact';
 
 export async function seedDatabase() {
   try {
@@ -56,7 +57,7 @@ export async function seedDatabase() {
           subtitle: 'Chandani Kumari - Makeup Artist & Beauty Specialist',
           tagline: 'Transforming Beauty with Elegance and Confidence.',
           bannerImage: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=1200', // Premium default banner
-          makeupArtistPhoto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600' // Placeholder artist photo
+          makeupArtistPhoto: 'https://drive.google.com/file/d/1lx-Vc726so_n5014MRd1Zu1iyh9zeXGc/view?usp=sharing' // Default client profile photo
         },
         statistics: {
           happyClients: 120,
@@ -303,6 +304,51 @@ export async function seedDatabase() {
       ];
       await Service.insertMany(servicesToSeed);
       console.log('Database Seeding: Default Services created.');
+    }
+
+    // 6. Seed Contact Inquiries
+    const contactsCount = await Contact.countDocuments();
+    if (contactsCount === 0) {
+      const contactsToSeed = [
+        {
+          name: 'Sneha Gupta',
+          phone: '+91 95555 55555',
+          email: 'sneha.gupta@example.com',
+          eventType: 'Bridal Makeup',
+          eventDate: '2026-12-15',
+          eventLocation: 'Whitefield, Bengaluru',
+          budget: '₹20,000 - ₹25,000',
+          message: 'Looking to book premium bridal HD makeup and double-veil dupatta draping. Please call me.',
+          status: 'new',
+          notes: ''
+        },
+        {
+          name: 'Priya Narayanan',
+          phone: '+91 91234 56789',
+          email: 'priya.n@example.com',
+          eventType: 'South Indian Bridal Makeup',
+          eventDate: '2026-11-20',
+          eventLocation: 'Indiranagar, Bengaluru',
+          budget: '₹18,000',
+          message: 'Need traditional South Indian wedding styling, braid extensions setting, and temple jewelry placement.',
+          status: 'contacted',
+          notes: 'Called on June 24. Trial scheduled for next week.'
+        },
+        {
+          name: 'Anjali Marwah',
+          phone: '+91 98765 43210',
+          email: 'anjali.m@example.com',
+          eventType: 'Marwari Saree Draping',
+          eventDate: '2026-10-05',
+          eventLocation: 'Rajajinagar, Bengaluru',
+          budget: '₹3,000',
+          message: 'Need elegant Marwari style saree pleating and setting for a reception event.',
+          status: 'archived',
+          notes: 'Booking confirmed and slot blocked.'
+        }
+      ];
+      await Contact.insertMany(contactsToSeed);
+      console.log('Database Seeding: Default Contact Inquiries created.');
     }
   } catch (error) {
     console.error('Error during database seeding:', error);
