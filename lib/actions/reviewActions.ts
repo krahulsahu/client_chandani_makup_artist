@@ -37,7 +37,21 @@ export async function submitReview(data: {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating client review submission.', data);
-    return { success: true };
+    const mockNewReview = {
+      _id: 'mock-' + Date.now(),
+      clientName: data.clientName,
+      phoneNumber: data.phoneNumber,
+      email: data.email || '',
+      eventType: data.eventType,
+      rating: Number(data.rating),
+      reviewMessage: data.reviewMessage,
+      clientPhoto: data.clientPhoto || '',
+      status: 'pending',
+      isFeatured: false,
+      createdAt: new Date().toISOString()
+    };
+    mockReviews.unshift(mockNewReview);
+    return { success: true, data: mockNewReview };
   }
 
   if (!data.clientName || !data.phoneNumber || !data.eventType || !data.rating || !data.reviewMessage) {
@@ -68,6 +82,10 @@ export async function approveReview(id: string) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating review approval.', id);
+    const review = mockReviews.find(r => r._id === id);
+    if (review) {
+      review.status = 'approved';
+    }
     return { success: true };
   }
 
@@ -90,6 +108,10 @@ export async function rejectReview(id: string) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating review rejection.', id);
+    const review = mockReviews.find(r => r._id === id);
+    if (review) {
+      review.status = 'rejected';
+    }
     return { success: true };
   }
 
@@ -112,7 +134,12 @@ export async function toggleFeaturedReview(id: string) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating review featured toggle.', id);
-    return { success: true, isFeatured: true };
+    const review = mockReviews.find(r => r._id === id);
+    if (review) {
+      review.isFeatured = !review.isFeatured;
+      return { success: true, isFeatured: review.isFeatured };
+    }
+    return { success: true, isFeatured: false };
   }
 
   await requireAuth();
@@ -134,6 +161,10 @@ export async function deleteReview(id: string) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating review deletion.', id);
+    const index = mockReviews.findIndex(r => r._id === id);
+    if (index !== -1) {
+      mockReviews.splice(index, 1);
+    }
     return { success: true };
   }
 

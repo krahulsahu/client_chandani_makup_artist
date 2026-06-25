@@ -14,12 +14,12 @@ async function requireAuth() {
 }
 
 export async function getContacts() {
-  await requireAuth();
   await dbConnect();
   if (isMockMode()) {
     return JSON.parse(JSON.stringify(mockContacts));
   }
 
+  await requireAuth();
   const contacts = await Contact.find().sort({ createdAt: -1 }).lean();
   return JSON.parse(JSON.stringify(contacts));
 }
@@ -37,7 +37,22 @@ export async function submitContact(data: {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating contact submission.', data);
-    return { success: true };
+    const mockNewContact = {
+      _id: 'mock-' + Date.now(),
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      eventType: data.eventType,
+      eventDate: data.eventDate || '',
+      eventLocation: data.eventLocation || '',
+      budget: data.budget || '',
+      message: data.message || '',
+      status: 'new' as const,
+      notes: '',
+      createdAt: new Date().toISOString()
+    };
+    mockContacts.unshift(mockNewContact);
+    return { success: true, data: mockNewContact };
   }
 
   if (!data.name || !data.phone || !data.email || !data.eventType) {
@@ -157,6 +172,13 @@ export async function updateContactStatus(id: string, status: 'new' | 'contacted
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating contact status update.', id, status, notes);
+    const contact = mockContacts.find(c => c._id === id);
+    if (contact) {
+      contact.status = status;
+      if (notes !== undefined) {
+        contact.notes = notes;
+      }
+    }
     return { success: true };
   }
 
@@ -180,6 +202,10 @@ export async function deleteContact(id: string) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating contact deletion.', id);
+    const index = mockContacts.findIndex(c => c._id === id);
+    if (index !== -1) {
+      mockContacts.splice(index, 1);
+    }
     return { success: true };
   }
 

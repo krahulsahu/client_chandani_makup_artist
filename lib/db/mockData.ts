@@ -1,4 +1,4 @@
-export const mockSettings = {
+const initialSettings = {
   websiteName: 'Chandani Kumari - Luxury Makeup Artist & Beauty Specialist',
   logo: '',
   email: 'chandkreh@gmail.com',
@@ -20,7 +20,7 @@ export const mockSettings = {
   googleAnalyticsId: ''
 };
 
-export const mockHomepage = {
+const initialHomepage = {
   hero: {
     title: 'Transforming Beauty with Elegance',
     subtitle: 'Chandani Kumari - Makeup Artist & Beauty Specialist',
@@ -38,7 +38,7 @@ export const mockHomepage = {
   portfolioPreviewTitle: 'Bridal & Event Portfolios'
 };
 
-export const mockAbout = {
+const initialAbout = {
   biography: 'Passionate and creative Makeup Artist currently training at VLCC School of Beauty, Bengaluru. Specializes in bridal, traditional, and contemporary Indian makeup looks. Experienced in bridal transformations, saree draping, hair styling, client consultations, and beauty services. Known for attention to detail, client satisfaction, professionalism, and elegant beauty solutions.',
   training: 'Cosmetology & Beauty Course at VLCC School of Beauty, Rajajinagar, Bengaluru (2026)',
   certifications: [
@@ -109,7 +109,7 @@ export const mockAbout = {
   ]
 };
 
-export const mockServices = [
+const initialServices = [
   {
     _id: 'mock-s1',
     name: 'Bridal Makeup',
@@ -119,7 +119,8 @@ export const mockServices = [
     duration: 150,
     includedFeatures: ['HD / Airbrush Cosmetics', 'Premium Lash Extensions', 'Hairstyling & Accessories setting', 'Dupatta & Jewelry styling'],
     category: 'Bridal',
-    isActive: true
+    isActive: true,
+    galleryImages: [] as string[]
   },
   {
     _id: 'mock-s2',
@@ -277,7 +278,7 @@ export const mockServices = [
   }
 ];
 
-export const mockPortfolio = [
+const initialPortfolio = [
   {
     _id: 'mock-p1',
     title: 'Traditional Gold Royal Bride',
@@ -317,7 +318,7 @@ export const mockPortfolio = [
   }
 ];
 
-export const mockReviews = [
+const initialReviews = [
   {
     _id: 'mock-r1',
     clientName: 'Priya Sharma',
@@ -342,7 +343,7 @@ export const mockReviews = [
   }
 ];
 
-export const mockContacts = [
+const initialContacts = [
   {
     _id: 'mock-c1',
     name: 'Sneha Gupta',
@@ -385,3 +386,19 @@ export const mockContacts = [
     createdAt: '2026-06-20T09:15:00.000Z'
   }
 ];
+
+if (!(global as any).mockSettings) (global as any).mockSettings = initialSettings;
+if (!(global as any).mockHomepage) (global as any).mockHomepage = initialHomepage;
+if (!(global as any).mockAbout) (global as any).mockAbout = initialAbout;
+if (!(global as any).mockServices) (global as any).mockServices = initialServices;
+if (!(global as any).mockPortfolio) (global as any).mockPortfolio = initialPortfolio;
+if (!(global as any).mockReviews) (global as any).mockReviews = initialReviews;
+if (!(global as any).mockContacts) (global as any).mockContacts = initialContacts;
+
+export const mockSettings = (global as any).mockSettings as typeof initialSettings;
+export const mockHomepage = (global as any).mockHomepage as typeof initialHomepage;
+export const mockAbout = (global as any).mockAbout as typeof initialAbout;
+export const mockServices = (global as any).mockServices as typeof initialServices;
+export const mockPortfolio = (global as any).mockPortfolio as typeof initialPortfolio;
+export const mockReviews = (global as any).mockReviews as typeof initialReviews;
+export const mockContacts = (global as any).mockContacts as typeof initialContacts;

@@ -31,7 +31,18 @@ export async function createPortfolioItem(data: any) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating portfolio creation.', data);
-    return { success: true };
+    const mockNewItem = {
+      _id: 'mock-' + Date.now(),
+      title: data.title,
+      slug: data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
+      category: data.category,
+      description: data.description || '',
+      eventDate: data.eventDate || new Date().toISOString(),
+      images: data.images || [],
+      isFeatured: data.isFeatured || false
+    };
+    mockPortfolio.unshift(mockNewItem);
+    return { success: true, data: mockNewItem };
   }
 
   await requireAuth();
@@ -59,6 +70,15 @@ export async function updatePortfolioItem(id: string, data: any) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating portfolio update.', id, data);
+    const item = mockPortfolio.find(p => p._id === id);
+    if (item) {
+      item.title = data.title;
+      item.category = data.category;
+      item.description = data.description || '';
+      item.eventDate = data.eventDate || item.eventDate;
+      item.images = data.images || [];
+      item.isFeatured = data.isFeatured || false;
+    }
     return { success: true };
   }
 
@@ -90,6 +110,10 @@ export async function deletePortfolioItem(id: string) {
   await dbConnect();
   if (isMockMode()) {
     console.log('Mock Mode: Simulating portfolio deletion.', id);
+    const index = mockPortfolio.findIndex(p => p._id === id);
+    if (index !== -1) {
+      mockPortfolio.splice(index, 1);
+    }
     return { success: true };
   }
 
